@@ -13,6 +13,52 @@
 
     </style>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <script>
+        /*alert("Tere, maailm!");*/
+
+        window.onload = function() {
+            let algne = document.getElementById("klikid");
+            algne.innerHTML = localStorage.getItem("Cooki");
+        }
+        function kaunter(){
+            let algne = document.getElementById("klikid");
+            let tulemus = Number(algne.innerHTML) + 1;
+            algne.innerHTML = tulemus;
+
+            localStorage.setItem("Cooki", tulemus);
+        }
+        let autoClickOn = false;
+let interval = null;
+
+
+// Salvesta hiire asukoht
+document.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+// Auto-click funktsioon
+function autoClick() {
+  const el = document.elementFromPoint(mouseX, mouseY);
+  if (el) el.click();
+}
+
+// F6 toggle
+document.addEventListener("keydown", (e) => {
+  if (e.code === "F6") {
+    autoClickOn = !autoClickOn;
+
+    if (autoClickOn) {
+      interval = setInterval(autoClick, 1);
+      console.log("Auto-click ON");
+    } else {
+      clearInterval(interval);
+      console.log("Auto-click OFF");
+    }
+  }
+});
+    </script>
 </head>
 <body>
 
@@ -29,6 +75,7 @@
     <a href="https://www.bing.com/">Nätsud ootavad teid</a>
     
     <br>
-<img style="width: 500px;;" src="images/Näts.jpg" alt="Pilt nätsutest">
+    <h2>Klikke kokku: <span id="klikid">0</span></h2>
+<img style="width: 500px;;" src="images/Näts.jpg" alt="Pilt nätsutest" onclick="kaunter()">
 </body>
 </html>
